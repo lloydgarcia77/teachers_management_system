@@ -1,0 +1,741 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+View Evaluation
+{% endblock title %}
+
+
+{% block additional_css %}
+
+{% endblock additional_css %}
+
+{% block body %}
+
+
+
+<h1 class="mt-4">Evaluation</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active text-capitalize">Evaluation Details</li>
+</ol>
+
+<nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
+    aria-label="breadcrumb">
+    <ol class="breadcrumb ">
+        <li class="breadcrumb-item"><a href="{% url 'tp:index_page' %}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'tp:evaluations_management' %}">Evaluations</a> </li>
+        <li class="breadcrumb-item active" aria-current="page">View Evaluation</li>
+    </ol>
+</nav>
+ 
+
+<div class="row">
+    <div class="col-12 col-md-12">
+        <div class="card">
+
+            <div class="card-header">
+                <div class="card-title">
+                    <h4>Evaluation Details</h4>
+                </div>
+            
+            </div>
+            <div class="card-body">
+                
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        {% if evals.employee.image %}
+                        <img class="img-thumbnail" src="{{ evals.employee.image.url }}" alt="">
+                        {% else %}
+                        <img class="img-thumbnail" src="{% static 'images/admin_icon.jpg' %}" alt="">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-floating mb-3">
+                            <input type="text" value="{{ evals.employee.get_full_name }}" class="form-control" readonly>
+                            <label>Teacher Name:</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" value="{{ evals.employee.position }}" class="form-control" readonly>
+                            <label>Position:</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" value="{{ evals.employee.department }}" class="form-control" readonly>
+                            <label>Department:</label>
+                        </div>
+                        <div class="form-floating mb-3 ">
+                            <input type="text" value="{{ evals.get_ratings|intcomma }}" class="form-control bg-success text-white" readonly>
+                            <label class="text-white">Total Ratings:</label>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <input type="text" value="{{evals.name}}" readonly class="form-control">
+                            <label>Name:</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <input type="text" value="{{evals.course_year_sec}}" readonly class="form-control">
+                            <label>Course/Year/Section:</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <input type="text" value="{{evals.age}}" readonly class="form-control">
+                            <label>Age:</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <input type="text" value="{{evals.gender}}" readonly class="form-control">
+                            <label>Gender:</label>
+                        </div>
+                    </div>
+              
+                </div>
+                <hr>
+
+
+                <h5>PLANNING AND PREPARATION</h5>
+                <ol>
+                    <li>
+                        Distributes to students Outcomes-Based Education Teaching Learning (OBTL) syllabus
+                        at the beginning of the semester or quarter
+                       
+                        <h5 class="text-uppercase"> 
+                            {% if evals.pp_q1 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.pp_q1 }}
+                            </span>
+                            {% elif evals.pp_q1 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.pp_q1 }}
+                            </span>
+                            {% elif evals.pp_q1 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.pp_q1 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.pp_q1 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                    <li>
+                        Explains the alignment of FCPC vision, mission, program educational objectives,
+                        program outcomes and course learning outcomes.
+                       
+                        <h5 class="text-uppercase"> 
+                            {% if evals.pp_q2 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.pp_q2 }}
+                            </span>
+                            {% elif evals.pp_q2 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.pp_q2 }}
+                            </span>
+                            {% elif evals.pp_q2 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.pp_q2 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.pp_q2 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                    <li>
+                        Meets class on scheduled day and time.
+                        <h5 class="text-uppercase"> 
+                            {% if evals.pp_q3 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.pp_q3 }}
+                            </span>
+                            {% elif evals.pp_q3 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.pp_q3 }}
+                            </span>
+                            {% elif evals.pp_q3 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.pp_q3 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.pp_q3 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                </ol>
+                <h5>TEACHING COMPETENCIES</h5>
+                <ol>
+                    <li>
+                        Provides mastery of essential learning competencies of the course at the beginning
+                        of the class. 
+                        <h5 class="text-uppercase"> 
+                            {% if evals.tc_q1 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.tc_q1 }}
+                            </span>
+                            {% elif evals.tc_q1 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.tc_q1 }}
+                            </span>
+                            {% elif evals.tc_q1 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.tc_q1 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.tc_q1 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                    <li>
+                        Articulates objectives and purpose of the lesson and related course learning
+                        outcomes. 
+                        <h5 class="text-uppercase"> 
+                            {% if evals.tc_q2 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.tc_q2 }}
+                            </span>
+                            {% elif evals.tc_q2 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.tc_q2 }}
+                            </span>
+                            {% elif evals.tc_q2 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.tc_q2 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.tc_q2 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+
+                    <li>
+                        Integrates FCPC core values in teaching the lessons.
+                         
+                        <h5 class="text-uppercase"> 
+                            {% if evals.tc_q3 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.tc_q3 }}
+                            </span>
+                            {% elif evals.tc_q3 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.tc_q3 }}
+                            </span>
+                            {% elif evals.tc_q3 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.tc_q3 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.tc_q3 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                    <li>
+                        Encourages students to understand and actualize FCPC core values in applying the
+                        learned knowledge and skills of the lessons.
+                        <h5 class="text-uppercase"> 
+                            {% if evals.tc_q4 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.tc_q4 }}
+                            </span>
+                            {% elif evals.tc_q4 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.tc_q4 }}
+                            </span>
+                            {% elif evals.tc_q4 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.tc_q4 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.tc_q4 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                    <li>
+                        Conducts interactive learning wherein the students participate actively in the
+                        learning activities.
+                        <h5 class="text-uppercase"> 
+                            {% if evals.tc_q5 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.tc_q5 }}
+                            </span>
+                            {% elif evals.tc_q5 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.tc_q5 }}
+                            </span>
+                            {% elif evals.tc_q5 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.tc_q5 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.tc_q5 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                    <li>
+                        Provides appropriate variety, interesting, challenging, and effective learning
+                        activities to attain the objectives of each lesson.
+                        
+                        <h5 class="text-uppercase"> 
+                            {% if evals.tc_q6 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.tc_q6 }}
+                            </span>
+                            {% elif evals.tc_q6 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.tc_q6 }}
+                            </span>
+                            {% elif evals.tc_q6 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.tc_q6 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.tc_q6 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                    <li>
+                        Asks relevant and thought-provoking questions. 
+                        <h5 class="text-uppercase"> 
+                            {% if evals.tc_q7 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.tc_q7 }}
+                            </span>
+                            {% elif evals.tc_q7 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.tc_q7 }}
+                            </span>
+                            {% elif evals.tc_q7 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.tc_q7 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.tc_q7 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                    <li>
+                        Sustains student’s interest throughout the period while maintaining a safe and
+                        healthy online environment.
+                    
+                        <h5 class="text-uppercase"> 
+                            {% if evals.tc_q8 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.tc_q8 }}
+                            </span>
+                            {% elif evals.tc_q8 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.tc_q8 }}
+                            </span>
+                            {% elif evals.tc_q8 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.tc_q8 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.tc_q8 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                    <li>
+                        Establishes clear connection between the lesson taught and the real world.
+                        Encourages the integration lessons to practical application to life.
+              
+                        <h5 class="text-uppercase"> 
+                            {% if evals.tc_q9 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.tc_q9 }}
+                            </span>
+                            {% elif evals.tc_q9 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.tc_q9 }}
+                            </span>
+                            {% elif evals.tc_q9 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.tc_q9 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.tc_q9 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                    <li>
+                        Shows mastery of the subject matter. 
+                        <h5 class="text-uppercase"> 
+                            {% if evals.tc_q10 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.tc_q10 }}
+                            </span>
+                            {% elif evals.tc_q10 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.tc_q10 }}
+                            </span>
+                            {% elif evals.tc_q10 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.tc_q10 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.tc_q10 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                    <li>
+                        Responds to the students’ queries or needs appropriately both online and offline.
+                       
+                        <h5 class="text-uppercase"> 
+                            {% if evals.tc_q11 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.tc_q11 }}
+                            </span>
+                            {% elif evals.tc_q11 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.tc_q11 }}
+                            </span>
+                            {% elif evals.tc_q11 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.tc_q11 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.tc_q11 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                    <li>
+                        Demonstrates fluency in English/Filipino as medium of instruction.
+                      
+                             
+                        <h5 class="text-uppercase"> 
+                            {% if evals.tc_q12 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.tc_q12 }}
+                            </span>
+                            {% elif evals.tc_q12 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.tc_q12 }}
+                            </span>
+                            {% elif evals.tc_q12 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.tc_q12 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.tc_q12 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                    <li>
+                        Provides appropriate oral and written formative assessments for mastery of the
+                        knowledge and skills of the lessons.
+                      
+                        <h5 class="text-uppercase"> 
+                            {% if evals.tc_q13 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.tc_q13 }}
+                            </span>
+                            {% elif evals.tc_q13 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.tc_q13 }}
+                            </span>
+                            {% elif evals.tc_q13 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.tc_q13 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.tc_q13 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                    <li>
+                        Provides students needed support during and after the class instruction for them to
+                        gain mastery of the learning competencies.
+                     
+                        <h5 class="text-uppercase"> 
+                            {% if evals.tc_q14 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.tc_q14 }}
+                            </span>
+                            {% elif evals.tc_q14 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.tc_q14 }}
+                            </span>
+                            {% elif evals.tc_q14 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.tc_q14 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.tc_q14 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                    <li>
+                        Gives grades to students based on their academic performance and learning
+                        assessments. 
+                        <h5 class="text-uppercase"> 
+                            {% if evals.tc_q15 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.tc_q15 }}
+                            </span>
+                            {% elif evals.tc_q15 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.tc_q15 }}
+                            </span>
+                            {% elif evals.tc_q15 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.tc_q15 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.tc_q15 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+
+                </ol>
+                <h5>
+                    TEACHER’S DECORUM
+                </h5>
+                <ol>
+                    <li>
+                        Shows professionalism in handling classroom instruction. 
+                        <h5 class="text-uppercase"> 
+                            {% if evals.td_q1 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.td_q1 }}
+                            </span>
+                            {% elif evals.td_q1 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.td_q1 }}
+                            </span>
+                            {% elif evals.td_q1 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.td_q1 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.td_q1 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                    <li>
+                        Exhibits confidence, spontaneity and naturalness
+                       
+                        <h5 class="text-uppercase"> 
+                            {% if evals.td_q2 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.td_q2 }}
+                            </span>
+                            {% elif evals.td_q2 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.td_q2 }}
+                            </span>
+                            {% elif evals.td_q2 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.td_q2 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.td_q2 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                    <li>
+                        Uses appropriate language/correct vocabulary.
+                 
+                        
+                        <h5 class="text-uppercase"> 
+                            {% if evals.td_q3 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.td_q3 }}
+                            </span>
+                            {% elif evals.td_q3 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.td_q3 }}
+                            </span>
+                            {% elif evals.td_q3 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.td_q3 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.td_q3 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                    <li>
+                        Gives clear/ precise instructions. 
+                        <h5 class="text-uppercase"> 
+                            {% if evals.td_q4 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.td_q4 }}
+                            </span>
+                            {% elif evals.td_q4 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.td_q4 }}
+                            </span>
+                            {% elif evals.td_q4 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.td_q4 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.td_q4 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                    <li>
+                        Demonstrates care, acceptance and respect for each student.
+                  
+                        <h5 class="text-uppercase"> 
+                            {% if evals.td_q5 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.td_q5 }}
+                            </span>
+                            {% elif evals.td_q5 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.td_q5 }}
+                            </span>
+                            {% elif evals.td_q5 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.td_q5 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.td_q5 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                    <li>
+                        Provides guidance and assistance for referral in case of other needs of the
+                        students.
+                         
+                        <h5 class="text-uppercase"> 
+                            {% if evals.td_q6 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.td_q6 }}
+                            </span>
+                            {% elif evals.td_q6 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.td_q6 }}
+                            </span>
+                            {% elif evals.td_q6 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.td_q6 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.td_q6 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                    <li>
+                        Respects the data privacy and confidentiality of pertinent information gathered from the students.
+               
+                        <h5 class="text-uppercase"> 
+                            {% if evals.td_q7 == 'execellent' %}
+                            <span class="badge bg-success">
+                                {{ evals.td_q7 }}
+                            </span>
+                            {% elif evals.td_q7 == 'good' %}
+                            <span class="badge bg-info">
+                                {{ evals.td_q7 }}
+                            </span>
+                            {% elif evals.td_q7 == 'fair' %}
+                            <span class="badge bg-warning">
+                                {{ evals.td_q7 }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger">
+                                {{ evals.td_q7 }}
+                            </span>
+                            {% endif %}
+                       
+                        </h5>
+                    </li>
+                </ol>
+                <hr>
+                <div class="form-floating mb-3 mb-md-0">
+                    <textarea class="form-control" cols="30" rows="10" readonly>{{ evals.comments_suggestions }}</textarea>
+                    <label>Comments/Suggestions:</label>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+</div>
+{% endblock body %}
+
+{% block additional_js %}
+{% endblock additional_js %}

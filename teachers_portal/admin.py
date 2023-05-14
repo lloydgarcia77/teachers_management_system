@@ -111,3 +111,11 @@ class PayrollDetailAdmin(ImportExportModelAdmin):
     ordering = ['date_created',]
 
 admin.site.register(models.PayrollDetail, PayrollDetailAdmin) 
+
+class EvaluationFormAdmin(ImportExportModelAdmin): 
+    list_display = [field.name for field in models.EvaluationForm._meta.get_fields() if 'fk' not in field.name]
+    search_fields = [field.name for field in models.EvaluationForm._meta.get_fields() if 'fk' not in field.name and field.name not in ['date_hired','id']]  
+    date_hierarchy = 'date_created'
+    ordering = ['date_created',]
+
+admin.site.register(models.EvaluationForm, EvaluationFormAdmin) 

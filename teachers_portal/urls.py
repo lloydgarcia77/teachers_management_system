@@ -19,6 +19,11 @@ urlpatterns = [
     path("payroll/delete/<uuid:id>/", views.delete_payroll, name="delete_payroll"),  
 
 
-    path("evaluations/", views.evalutaions_management, name="evalutaions_management"),  
+    path("evaluations/", views.evaluations_management, name="evaluations_management"),  
+    path("evaluations/view/<uuid:id>", views.view_evaluation, name="view_evaluation"),  
+    path("evaluations/delete/<uuid:id>", views.delete_evaluation, name="delete_evaluation"),  
+    path("evaluations/selection/", views.evaluations_selection, name="evaluations_selection"),  
+    path("evaluations/selection/teacher/<uuid:id>/", views.evaluate_teacher, name="evaluate_teacher"),  
+    path("evaluations/completed/", views.evaluation_completed, name="evaluation_completed"),  
 
 ]

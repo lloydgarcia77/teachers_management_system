@@ -413,3 +413,134 @@ class PayrollDetailForm(forms.ModelForm):
         self.fields['lbp_adj'].widget.attrs = {
             'class': 'form-control', 
         }
+
+
+class EvaluationForm(forms.ModelForm): 
+
+    pp_q1 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+    pp_q2 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+    pp_q3 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+
+    tc_q1 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+    tc_q2 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+    tc_q3 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+    tc_q4 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+    tc_q5 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+    tc_q6 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+    tc_q7 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+    tc_q8 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+    tc_q9 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+    tc_q10 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+    tc_q11 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+    tc_q12 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+    tc_q13 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+    tc_q14 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+    tc_q15 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+
+    td_q1 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+    td_q2 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+    td_q3 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+    td_q4 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+    td_q5 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+    td_q6 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+    td_q7 = forms.ChoiceField(
+        choices=models.EvaluationForm.RATINGS,
+        widget=forms.RadioSelect(attrs={'class': 'rating-list'})
+    )
+
+    
+    class Meta:
+        model = models.EvaluationForm
+        exclude = ('id', 'date_created', 'employee',) 
+
+    
+    def __init__(self, *args, **kwargs):
+        super(EvaluationForm, self).__init__(*args, **kwargs)
+ 
+        self.fields['name'].widget.attrs = {
+            'class': 'form-control', 
+        }
+        self.fields['course_year_sec'].widget.attrs = {
+            'class': 'form-control', 
+        }
+        self.fields['age'].widget.attrs = {
+            'class': 'form-control', 
+        }
+        self.fields['gender'].widget.attrs = {
+            'class': 'form-control', 
+        }
+        self.fields['comments_suggestions'].widget.attrs = {
+            'class': 'form-control', 
+        }

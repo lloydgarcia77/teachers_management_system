@@ -249,4 +249,105 @@ class PayrollDetail(models.Model):
         return get_short_uuid(self.id)
 
 
+class EvaluationForm(models.Model): 
+    RATINGS = (
+        ('poor', 'poor'),
+        ('fair', 'fair'),
+        ('good', 'good'),
+        ('execellent', 'execellent'),
+    )
 
+    GENDER_LIST = (
+        ('Male','Male'),
+        ('Female','Female'),
+    )
+    
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4) 
+    employee = models.ForeignKey(ProfileDetail, on_delete=models.CASCADE, related_name="fk_evaluation_employee")  
+
+    name = models.CharField(max_length=250)
+    course_year_sec = models.CharField(max_length=250)
+    age = models.IntegerField()
+    gender = models.CharField(max_length=15, choices=GENDER_LIST, default='Male')
+
+    # NOTE: PLANNING AND PREPARATION
+
+    pp_q1 = models.CharField(max_length=50, choices=RATINGS, default='poor', verbose_name='Distributes to students Outcomes-Based Education Teaching Learning (OBTL) syllabus at the beginning of the semester or quarter')
+    pp_q2 = models.CharField(max_length=50, choices=RATINGS, default='poor', verbose_name='Explains the alignment of FCPC vision, mission, program educational objectives, program outcomes and course learning outcomes.')
+    pp_q3 = models.CharField(max_length=50, choices=RATINGS, default='poor', verbose_name='Meets class on scheduled day and time.')
+
+    # NOTE: TEACHING COMPETENCIES
+    tc_q1 = models.CharField(max_length=50, choices=RATINGS, default='poor', verbose_name='Provides mastery of essential learning competencies of the course at the beginning of the class.')
+    tc_q2 = models.CharField(max_length=50, choices=RATINGS, default='poor', verbose_name='Articulates objectives and purpose of the lesson and related course learning outcomes.')
+    tc_q3 = models.CharField(max_length=50, choices=RATINGS, default='poor', verbose_name='Integrates FCPC core values in teaching the lessons.')
+    tc_q4 = models.CharField(max_length=50, choices=RATINGS, default='poor', verbose_name='Encourages students to understand and actualize FCPC core values in applying the learned knowledge and skills of the lessons.')
+    tc_q5 = models.CharField(max_length=50, choices=RATINGS, default='poor', verbose_name='Conducts interactive learning wherein the students participate actively in the learning activities.')
+    tc_q6 = models.CharField(max_length=50, choices=RATINGS, default='poor', verbose_name='Provides appropriate variety, interesting, challenging, and effective learning activities to attain the objectives of each lesson. ')
+    tc_q7 = models.CharField(max_length=50, choices=RATINGS, default='poor', verbose_name='Asks relevant and thought-provoking questions.')
+    tc_q8 = models.CharField(max_length=50, choices=RATINGS, default='poor', verbose_name='Sustains student’s interest throughout the period while maintaining a safe and  healthy online environment. ')
+    tc_q9 = models.CharField(max_length=50, choices=RATINGS, default='poor', verbose_name='Establishes clear connection between the lesson taught and the real world. Encourages the integration lessons to practical application to life. ')
+    tc_q10 = models.CharField(max_length=50, choices=RATINGS, default='poor', verbose_name='Shows mastery of the subject matter.')
+    tc_q11 = models.CharField(max_length=50, choices=RATINGS, default='poor', verbose_name='Responds to the students’ queries or needs appropriately both online and offline.')
+    tc_q12 = models.CharField(max_length=50, choices=RATINGS, default='poor', verbose_name='Demonstrates fluency in English/Filipino as medium of instruction.')
+    tc_q13 = models.CharField(max_length=50, choices=RATINGS, default='poor', verbose_name='Provides appropriate oral and written formative assessments for mastery of the knowledge and skills of the lessons')
+    tc_q14 = models.CharField(max_length=50, choices=RATINGS, default='poor',verbose_name='Provides students needed support during and after the class instruction for them to gain mastery of the learning competencies.')
+    tc_q15 = models.CharField(max_length=50, choices=RATINGS, default='poor',verbose_name='Gives grades to students based on their academic performance and learning assessments.')
+    # NOTE: TEACHER’S DECORUM
+    td_q1 = models.CharField(max_length=50, choices=RATINGS, default='poor',verbose_name='Shows professionalism in handling classroom instruction. ')
+    td_q2 = models.CharField(max_length=50, choices=RATINGS, default='poor',verbose_name='Exhibits confidence, spontaneity and naturalness.')
+    td_q3 = models.CharField(max_length=50, choices=RATINGS, default='poor',verbose_name='Uses appropriate language/correct vocabulary.')
+    td_q4 = models.CharField(max_length=50, choices=RATINGS, default='poor',verbose_name='Gives clear/ precise instructions.')
+    td_q5 = models.CharField(max_length=50, choices=RATINGS, default='poor',verbose_name='Demonstrates care, acceptance and respect for each student.')
+    td_q6 = models.CharField(max_length=50, choices=RATINGS, default='poor',verbose_name='Provides guidance and assistance for referral in case of other needs of the students.')
+    td_q7 = models.CharField(max_length=50, choices=RATINGS, default='poor',verbose_name='Respects the data privacy and confidentiality of pertinent information gathered from the students.')
+
+    comments_suggestions = models.TextField(blank=True, null=True)
+    
+    date_created = models.DateTimeField(auto_now_add=True) 
+
+    
+    def __str__(self):
+        return self.employee.get_full_name()
+
+    def get_ratings(self):
+        RATING_MAP = {
+            'poor': 1,
+            'fair': 2,
+            'good': 3,
+            'execellent': 4,
+        }
+
+
+        rating_list = [
+            RATING_MAP.get(self.pp_q1, 0),
+            RATING_MAP.get(self.pp_q2, 0),
+            RATING_MAP.get(self.pp_q3, 0),
+
+            RATING_MAP.get(self.tc_q1, 0),
+            RATING_MAP.get(self.tc_q2, 0),
+            RATING_MAP.get(self.tc_q3, 0),
+            RATING_MAP.get(self.tc_q4, 0),
+            RATING_MAP.get(self.tc_q5, 0),
+            RATING_MAP.get(self.tc_q6, 0),
+            RATING_MAP.get(self.tc_q7, 0),
+            RATING_MAP.get(self.tc_q8, 0),
+            RATING_MAP.get(self.tc_q9, 0),
+            RATING_MAP.get(self.tc_q10, 0),
+            RATING_MAP.get(self.tc_q11, 0),
+            RATING_MAP.get(self.tc_q12, 0),
+            RATING_MAP.get(self.tc_q13, 0),
+            RATING_MAP.get(self.tc_q14, 0),
+            RATING_MAP.get(self.tc_q15, 0),
+
+            RATING_MAP.get(self.td_q1, 0),
+            RATING_MAP.get(self.td_q2, 0),
+            RATING_MAP.get(self.td_q3, 0),
+            RATING_MAP.get(self.td_q4, 0),
+            RATING_MAP.get(self.td_q5, 0),
+            RATING_MAP.get(self.td_q6, 0),
+            RATING_MAP.get(self.td_q7, 0),
+        ]
+
+        print(sum(rating_list))
+        return sum(rating_list) / len(rating_list)

@@ -1,0 +1,242 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>
+        Evaluate Teacher
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
+        crossorigin="anonymous"></script>
+
+    <style>
+        ul.rating-list {
+            position: relative;
+            list-style: none;
+            padding: 0;
+            margin-top: 8px;
+
+        }
+
+        ul.rating-list li {
+            position: relative;
+            display: inline-block;
+            text-transform: capitalize;
+            font-weight: 600;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body class="sb-nav-fixed">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mt-5 mb-5">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="card-header">
+                            <h3 class="text-center">EVALUATION OF STUDENTS FOR TEACHER CLASSROOM INSTRUCTION</h3>
+                            <p class="text-center text-danger mb-0">
+                                <b>{{teacher.get_full_name }}</b>
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            
+                            {% include 'partials/_messages.html' %}
+                            {% include 'partials/_form_errors.html' %}
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-floating mb-3 mb-md-0">
+                                        {{ form.name }}
+                                        <label>Name:</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-floating mb-3 mb-md-0">
+                                        {{ form.course_year_sec }}
+                                        <label>Course/Year/Section:</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-floating mb-3 mb-md-0">
+                                        {{ form.age }}
+                                        <label>Age:</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6  mb-3">
+                                    <div class="form-floating mb-3 mb-md-0">
+                                        {{ form.gender }}
+                                        <label>Gender:</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+
+
+                            <h5>PLANNING AND PREPARATION</h5>
+                            <ol>
+                                <li>
+                                    Distributes to students Outcomes-Based Education Teaching Learning (OBTL) syllabus
+                                    at the beginning of the semester or quarter
+                                    {{ form.pp_q1 }}
+                                </li>
+                                <li>
+                                    Explains the alignment of FCPC vision, mission, program educational objectives,
+                                    program outcomes and course learning outcomes.
+                                    {{ form.pp_q2 }}
+                                </li>
+                                <li>
+                                    Meets class on scheduled day and time.
+                                    {{ form.pp_q3 }}
+                                </li>
+                            </ol>
+                            <h5>TEACHING COMPETENCIES</h5>
+                            <ol>
+                                <li>
+                                    Provides mastery of essential learning competencies of the course at the beginning
+                                    of the class.
+                                    {{ form.tc_q1 }}
+                                </li>
+                                <li>
+                                    Articulates objectives and purpose of the lesson and related course learning
+                                    outcomes.
+                                    {{ form.tc_q2 }}
+                                </li>
+
+                                <li>
+                                    Integrates FCPC core values in teaching the lessons.
+                                    {{ form.tc_q3 }}
+                                </li>
+                                <li>
+                                    Encourages students to understand and actualize FCPC core values in applying the
+                                    learned knowledge and skills of the lessons.
+                                    {{ form.tc_q4 }}
+                                </li>
+                                <li>
+                                    Conducts interactive learning wherein the students participate actively in the
+                                    learning activities.
+                                    {{ form.tc_q5 }}
+                                </li>
+                                <li>
+                                    Provides appropriate variety, interesting, challenging, and effective learning
+                                    activities to attain the objectives of each lesson.
+                                    {{ form.tc_q6 }}
+                                </li>
+                                <li>
+                                    Asks relevant and thought-provoking questions.
+                                    {{ form.tc_q7 }}
+                                </li>
+                                <li>
+                                    Sustains student’s interest throughout the period while maintaining a safe and
+                                    healthy online environment.
+                                    {{ form.tc_q8 }}
+                                </li>
+                                <li>
+                                    Establishes clear connection between the lesson taught and the real world.
+                                    Encourages the integration lessons to practical application to life.
+                                    {{ form.tc_q9 }}
+                                </li>
+                                <li>
+                                    Shows mastery of the subject matter.
+                                    {{ form.tc_q10 }}
+                                </li>
+                                <li>
+                                    Responds to the students’ queries or needs appropriately both online and offline.
+                                    {{ form.tc_q11 }}
+                                </li>
+                                <li>
+                                    Demonstrates fluency in English/Filipino as medium of instruction.
+                                    {{ form.tc_q12 }}
+                                </li>
+                                <li>
+                                    Provides appropriate oral and written formative assessments for mastery of the
+                                    knowledge and skills of the lessons.
+                                    {{ form.tc_q13 }}
+                                </li>
+                                <li>
+                                    Provides students needed support during and after the class instruction for them to
+                                    gain mastery of the learning competencies.
+                                    {{ form.tc_q14 }}
+                                </li>
+                                <li>
+                                    Gives grades to students based on their academic performance and learning
+                                    assessments.
+                                    {{ form.tc_q15 }}
+                                </li>
+
+                            </ol>
+                            <h5>
+                                TEACHER’S DECORUM
+                            </h5>
+                            <ol>
+                                <li>
+                                    Shows professionalism in handling classroom instruction.
+                                    {{ form.td_q1 }}
+                                </li>
+                                <li>
+                                    Exhibits confidence, spontaneity and naturalness
+                                    {{ form.td_q2 }}
+                                </li>
+                                <li>
+                                    Uses appropriate language/correct vocabulary.
+                                    {{ form.td_q3 }}
+                                </li>
+                                <li>
+                                    Gives clear/ precise instructions.
+                                    {{ form.td_q4 }}
+                                </li>
+                                <li>
+                                    Demonstrates care, acceptance and respect for each student.
+                                    {{ form.td_q5 }}
+                                </li>
+                                <li>
+                                    Provides guidance and assistance for referral in case of other needs of the
+                                    students.
+                                    {{ form.td_q6 }}
+                                </li>
+                                <li>
+                                    Respects the data privacy and confidentiality of pertinent information gathered from the students.
+                                    {{ form.td_q7 }}
+                                </li>
+                            </ol>
+                            <hr>
+                            <div class="form-floating mb-3 mb-md-0">
+                                {{ form.comments_suggestions }}
+                                <label>Comments/Suggestions:</label>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save mr-1"></i>
+                                Submit
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src="{% static 'js/jquery-3.6.4.min.js' %}"></script>
+
+
+</body>
+
+</html>

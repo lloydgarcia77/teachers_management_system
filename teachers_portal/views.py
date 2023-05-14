@@ -155,9 +155,17 @@ def activate(request, uidb64, token):
 @c_decorators.has_profile  
 def index(request, *args, **kwargs):
     template_name = 'index.html'  
- 
+    
+    t_users = models.User.objects.all()
+    t_emp = models.ProfileDetail.objects.all()
+    t_payroll = models.PayrollDetail.objects.all()
+    t_eval = models.EvaluationForm.objects.all()
    
     context = {
+        't_users': t_users.count(),
+        't_emp': t_emp.count(),
+        't_payroll': t_payroll.count(),
+        't_eval': t_eval.count(),
         
     }
     return render(request, template_name, context)
@@ -369,16 +377,98 @@ def delete_payroll(request, *args, **kwargs):
 @login_required 
 @c_decorators.is_authorized_user  
 @c_decorators.has_profile  
-def evalutaions_management(request, *args, **kwargs):
-    template_name = 'profile.html'  
+def evaluations_management(request, *args, **kwargs):
+    template_name = 'evaluations/evaluations.html'  
     user = kwargs.get('user')
+
+
+    evals = models.EvaluationForm.objects.all()
  
 
     context = {  
-        'profile': profile,
+        'evals': evals,
+    }
+   
+     
+    return render(request, template_name, context)
+
+@login_required 
+@c_decorators.is_authorized_user  
+@c_decorators.has_profile  
+def view_evaluation(request, *args, **kwargs):
+    template_name = 'evaluations/view.html'  
+    user = kwargs.get('user')
+    id = kwargs.get('id')
+    evals = get_object_or_404(models.EvaluationForm, id=id) 
+    context = {   
+        'evals': evals,
+    }
+   
+     
+    return render(request, template_name, context)
+
+@login_required 
+@c_decorators.is_authorized_user  
+@c_decorators.has_profile  
+def delete_evaluation(request, *args, **kwargs):
+    template_name = 'evaluations/delete.html'  
+    user = kwargs.get('user')
+    id = kwargs.get('id')
+    evals = get_object_or_404(models.EvaluationForm, id=id) 
+    if request.method == 'POST':
+        # evals.delete()
+        messages.success(request, "Evaluation form has been deleted!")
+        return HttpResponseRedirect(reverse('tp:evaluations_management'))
+
+    context = {   
+        'evals': evals,
     }
    
      
     return render(request, template_name, context)
 
 
+# NOTE: Client Side
+
+def evaluations_selection(request, *args, **kwargs):
+    template_name = 'evaluations/selection.html'   
+    teachers = models.ProfileDetail.objects.all()
+
+    context = {  
+        'teachers': teachers,
+    }
+   
+     
+    return render(request, template_name, context)
+
+
+
+
+
+def evaluate_teacher(request, *args, **kwargs):
+    template_name = 'evaluations/evaluate.html'   
+    id = kwargs.get('id')
+    teacher = get_object_or_404(models.ProfileDetail, id=id)
+
+    if request.method == 'GET':
+        form = forms.EvaluationForm(request.GET or None)
+    elif request.method == 'POST':
+        form = forms.EvaluationForm(request.POST or None)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.employee = teacher
+            instance.save() 
+            return HttpResponseRedirect(reverse('tp:evaluation_completed'))
+
+    context = {   
+        'teacher': teacher,
+        'form': form,
+    }
+   
+     
+    return render(request, template_name, context)
+
+
+def evaluation_completed(request, *args, **kwargs):
+    template_name = 'evaluations/thankyou.html'   
+    return render(request, template_name)
