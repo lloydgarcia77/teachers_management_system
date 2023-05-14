@@ -6,6 +6,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.sessions.models import Session
 from .forms import UserAdminCreationForms, UserAdminChangeForm 
+from teachers_portal import models
 
 admin.site.site_header = 'Teachers Portal Administrator'
 admin.site.index_title = 'Super Administrator Page'
@@ -94,13 +95,19 @@ class UserAdmin(BaseUserAdmin):
 
 
 admin.site.register(User, UserAdmin)
-#  list_display = [field.name for field in models.ShopDetail._meta.get_fields() if field.name not in ['fk_ip_sd',]] 
-# list_display = ("id","no","slug","title","version","author","is_delete","status","is_signed","hard_copy","content","date_filed")
-# list_editable = ("no","slug","title","version","author","is_delete","status","is_signed","hard_copy","content",)
-# list_per_page = 10
-# search_fields = ("id","no","slug","title","version","author","status","content","date_filed")
-# list_filter = ("author","status","is_signed",)
-# prepopulated_fields = {'slug': ('no',)}
-# date_hierarchy = 'date_filed'
-# ordering = ["no", "version", "author"]
 
+class ProfileDetailAdmin(ImportExportModelAdmin): 
+    list_display = [field.name for field in models.ProfileDetail._meta.get_fields() if 'fk' not in field.name]
+    search_fields = [field.name for field in models.ProfileDetail._meta.get_fields() if 'fk' not in field.name and field.name not in ['date_hired','id']]  
+    date_hierarchy = 'date_hired'
+    ordering = ['date_hired',]
+
+admin.site.register(models.ProfileDetail, ProfileDetailAdmin) 
+
+class PayrollDetailAdmin(ImportExportModelAdmin): 
+    list_display = [field.name for field in models.PayrollDetail._meta.get_fields() if 'fk' not in field.name]
+    search_fields = [field.name for field in models.PayrollDetail._meta.get_fields() if 'fk' not in field.name and field.name not in ['date_hired','id']]  
+    date_hierarchy = 'date_created'
+    ordering = ['date_created',]
+
+admin.site.register(models.PayrollDetail, PayrollDetailAdmin) 

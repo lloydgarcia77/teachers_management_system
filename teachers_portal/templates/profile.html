@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Profile
+{% endblock title %}
+
+
+{% block additional_css %}
+<style>
+    .image-profile{
+        position: relative;
+        display: inline-block;
+        margin: 0 auto;
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+        border-radius: 5px;
+    }
+</style>
+{% endblock additional_css %}
+
+{% block body %}
+<h1 class="mt-4">Profile</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active text-capitalize">user details</li>
+</ol>
+
+
+{% include 'partials/_messages.html' %}
+
+<div class="row">
+    <div class="col-12 col-md-12">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title  p-0">
+                        <b>Profile Details</b>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 col-3">
+                            <div class="row">
+                                <div class="col-md-12 mb-3" style="  text-align: center;"> 
+                                    {% if profile.image %}
+                                    <img class="image-profile" src="{{profile.image.url}}" alt="">
+                                    {% else %}
+                                    <img class="image-profile" src="{% static 'images/admin_icon.jpg' %}" alt="">
+                                    {% endif %}
+                                    
+                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <label><b>Image/Picture:</b></label>
+                                    {{ form.image }}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-9 col-9">
+                            <!-- NOTE: 1st Row -->
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <div class="form-floating mb-3 mb-md-0">
+                                        {{ form.s_name }}
+                                        <label>Suffix Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-floating mb-3 mb-md-0">
+                                        {{ form.f_name }}
+                                        <label>First Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-floating mb-3 mb-md-0">
+                                        {{ form.m_name }}
+                                        <label>Middle Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-floating mb-3 mb-md-0">
+                                        {{ form.l_name }}
+                                        <label>Last Name</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- NOTE: 2nd Row -->
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3 mb-md-0">
+                                        {{ form.gender }}
+                                        <label>Gender</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3 mb-md-0">
+                                        {{ form.dob }}
+                                        <label>Date of Birth</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3 mb-md-0">
+                                        {{ form.age }}
+                                        <label>Age</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- NOTE 3rd row -->
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3 mb-md-0">
+                                        {{ form.contact_no }}
+                                        <label>Contact #</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-floating mb-3 mb-md-0">
+                                        {{ form.address }}
+                                        <label>Address</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <!-- NOTE 4th row -->
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3 mb-md-0">
+                                        {{ form.position }}
+                                        <label>Position</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3 mb-md-0">
+                                        {{ form.highest_deg_attain }}
+                                        <label>Highest Degree Attained</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3 mb-md-0">
+                                        {{ form.school_grad }}
+                                        <label>School Graduated</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- NOTE 5th row -->
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3 mb-md-0">
+                                        {{ form.department }}
+                                        <label>Department</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3 mb-md-0">
+                                        {{ form.subject_coordinator }}
+                                        <label>Subject Coordinator</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-floating mb-3 mb-md-0">
+                                        {{ form.course }}
+                                        <label>Course</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-info float-end">
+                        <i class="fas fa-save mr-1"></i>
+                        Update
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock body %}
+
+{% block additional_js %}
+{% endblock additional_js %}

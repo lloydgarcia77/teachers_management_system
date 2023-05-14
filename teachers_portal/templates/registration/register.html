@@ -1,0 +1,72 @@
+{% extends "registration/base.html" %}
+
+{% block title %}
+Registration
+{% endblock title %}
+
+{% block additional_css %}
+{% endblock additional_css %}
+
+
+{% block body %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card shadow-lg border-0 rounded-lg mt-5">
+            <div class="card-header">
+                <h3 class="text-center font-weight-light my-4">Create New Teacher Account</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+
+
+                    {% include 'partials/_messages.html' %}
+                    {% include 'partials/_form_errors.html' %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <h5><i class="icon fas fa-exclamation-triangle"></i> Warning! Apply Strong Password!</h5>
+                        <ul>
+                            <li>The password must not be too short. It must contain at least 8 characters.</li>
+                            <li>The password must not be too common.</li>
+                            <li>The password must contain at least 1 digit, 0-9.</li>
+                            <li>The password must contain at least 1 uppercase letter, A-Z.</li>
+                            <li>The password must contain at least 1 symbol: ()[]{}|\`~!@#$%^&*_-+=;:"",<>./?</li>
+                        </ul>
+                    </div>
+                    <div class="form-floating mb-3">
+                        {{ form.email }}
+                        <label for="id_email">Email address</label>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3 mb-md-0">
+                                {{ form.password1 }}
+                                <label for="id_password1">Password</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3 mb-md-0">
+                                {{ form.password2 }}
+                                <label for="id_password2">Confirm Password</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 mb-0">
+                        <div class="d-grid"><button type="submit" class="btn btn-primary btn-block">Create
+                                Account</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center py-3">
+                <div class="small"><a href="{% url 'login' %}">Have an account? Go to login</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
+
+
+{% block additional_js %}
+{% endblock additional_js %}
